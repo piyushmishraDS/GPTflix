@@ -72,7 +72,7 @@ COMPLETIONS_API_PARAMS = {
 feedback_url = "https://forms.gle/YMTtGK1zXdCRzRaj6"
 bb_url ="https://www.bensbites.co/?utm_source=gptflix"
 tech_url = "https://news.ycombinator.com/item?id=34802625"
-github_url = "https://github.com/stephansturges/GPTflix"
+github_url = "https://github.com/piyushmishraDS/GPTflix"
 
 with st.sidebar:
     st.markdown("# About 🙌")
