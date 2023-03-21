@@ -19,7 +19,7 @@ openai.api_key = st.secrets["API_KEYS"]["openai"]
 
 #gptflix_logo = Image.open('./chat/logo.png')
 
-bens_bites_logo = Image.open('./chat/Bens_Bites_Logo.jpg')
+# bens_bites_logo = Image.open('./chat/Bens_Bites_Logo.jpg')
 
 # random user picture
 user_av = random.randint(0, 100)
@@ -37,13 +37,13 @@ def randomize_array(arr):
 
 st.set_page_config(page_title="GPTflix", page_icon="🍿", layout="wide")
 
-st.header("GPTflix is like chatGPT for movie reviews!🍿\n")
+# st.header("GPTflix is like chatGPT for movie reviews!🍿\n")
 
 
-st.header("Thanks for visiting GPTflix! It's been a fun experiment, with over 4000 unique users over four weeks and an average of 10 questions per user while the site was online! Perhaps we will be back some time...🍿\n")
+st.header("Thanks for visiting GPTflix! It's been a fun experiment, with over 2500 unique users over two weeks and an average of 10 questions per user while the site was online! Perhaps we will be back some time...🍿\n")
 
 # Define the name of the index and the dimensionality of the embeddings
-index_name = "1kmovies"
+index_name = "400kmovies"
 dimension = 1536
 
 pineconeindex = pinecone.Index(index_name)
@@ -57,8 +57,8 @@ pineconeindex = pinecone.Index(index_name)
 ######################################
 
 
-#COMPLETIONS_MODEL = "text-davinci-003"
-COMPLETIONS_MODEL = "gpt-3.5-turbo"
+COMPLETIONS_MODEL = "text-davinci-003"
+#COMPLETIONS_MODEL = "text-curie-001"
 EMBEDDING_MODEL = "text-embedding-ada-002"
 
 COMPLETIONS_API_PARAMS = {
@@ -78,17 +78,15 @@ with st.sidebar:
     st.markdown("# About 🙌")
     st.markdown(
         "GPTflix allows you to talk to version of chatGPT \n"
-        "that has access to reviews of about 10 000 movies! 🎬 \n"
-        "Holy smokes, chatGPT and 10x cheaper??! We are BACK! 😝\n"
+        "that has access to reviews of about 1K movies! 🎬 \n"
+        "It's a little stupid at the moment because it knows 30k movies but only has reviews for 1k 😝\n"
         )
     st.markdown(
         "Unline chatGPT, GPTflix can't make stuff up\n"
         "and will only answer from injected knowlege 👩‍🏫 \n"
     )
     st.markdown("---")
-    st.markdown("A side project by Stephan Sturges")
-    st.markdown("Kept online by [Ben's Bites](%s)!" %bb_url)
-    st.image(bens_bites_logo, width=60)
+    st.markdown("A project by Fatbrain")
 
     st.markdown("---")
     st.markdown("Tech [info](%s) for you nerds out there!" %tech_url)
@@ -120,7 +118,7 @@ def get_embedding(text, model):
 
 
 
-MAX_SECTION_LEN = 2500 #in tokens
+MAX_SECTION_LEN = 2000 #in tokens
 SEPARATOR = "\n"
 ENCODING = "cl100k_base"  # encoding for text-embedding-ada-002
 
@@ -171,9 +169,10 @@ def construct_prompt_pinecone(question):
     
     header = """Answer the question as truthfully as possible using the provided context, 
     and if the answer is not contained within the text below, say "I don't know."
-    Answer in a very sarcastic tone and make it fun! Surprise the user with your answers. You can give long answers tangentially related to the movie.\n
-    You are GPTflix, a AI movie-buff that loves talking about movies!\n
+    Answer in a very sarcastic tone and make it fun! Surpise the user with your answers!\n
     Context:\n
+    You are GPTflix, a AI movie-buff that loves talking about movies!\n
+    Movie references:\n
     """ 
     return header + "".join(chosen_sections) 
 
@@ -226,12 +225,8 @@ def answer_query_with_context_pinecone(query):
     print(prompt)
     print("---------------------------------------------")
     try:
-        response = openai.ChatCompletion.create(
-                    messages=[{"role": "system", "content": "You are a helpful AI who loves movies."},
-                            {"role": "user", "content": str(prompt)}],
-                            # {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
-                            # {"role": "user", "content": "Where was it played?"}
-                            # ]
+        response = openai.Completion.create(
+                    prompt=prompt,
                     **COMPLETIONS_API_PARAMS
                 )
     except Exception as e:
@@ -241,7 +236,7 @@ def answer_query_with_context_pinecone(query):
 
     choices = response.get("choices", [])
     if len(choices) > 0:
-        return choices[0]["message"]["content"].strip(" \n")
+        return choices[0]["text"].strip(" \n")
     else:
         return None
 
@@ -279,5 +274,3 @@ def answer_query_with_context_pinecone(query):
 #     for i in range(len(st.session_state['generated'])-1, -1, -1):
 #         message(st.session_state["generated"][i],seed=bott_av , key=str(i))
 #         message(st.session_state['past'][i], is_user=True,avatar_style="adventurer",seed=user_av, key=str(i) + '_user')
-
-
