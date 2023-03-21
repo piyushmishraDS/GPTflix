@@ -75,8 +75,8 @@ with st.sidebar:
     st.markdown("# About 🙌")
     st.markdown(
         "GPTflix allows you to talk to version of chatGPT \n"
-        "that has access to reviews of about 10 000 movies! 🎬 \n"
-        "It's a little stupid at the moment because it knows 30k movies but only has reviews for 10k 😝\n"
+        "that has access to reviews of about 1K movies! 🎬 \n"
+        "It's a little stupid at the moment because it knows 30k movies but only has reviews for 1k 😝\n"
         )
     st.markdown(
         "Unline chatGPT, GPTflix can't make stuff up\n"
