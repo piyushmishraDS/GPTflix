@@ -19,7 +19,7 @@ openai.api_key = st.secrets["API_KEYS"]["openai"]
 
 #gptflix_logo = Image.open('./chat/logo.png')
 
-# bens_bites_logo = Image.open('./chat/Bens_Bites_Logo.jpg')
+bens_bites_logo = Image.open('./chat/Bens_Bites_Logo.jpg')
 
 # random user picture
 user_av = random.randint(0, 100)
@@ -37,10 +37,7 @@ def randomize_array(arr):
 
 st.set_page_config(page_title="GPTflix", page_icon="🍿", layout="wide")
 
-# st.header("GPTflix is like chatGPT for movie reviews!🍿\n")
-
-
-st.header("Thanks for visiting GPTflix! It's been a fun experiment, with over 2500 unique users over two weeks and an average of 10 questions per user while the site was online! Perhaps we will be back some time...🍿\n")
+st.header("GPTflix is like chatGPT for movie reviews!🍿\n")
 
 # Define the name of the index and the dimensionality of the embeddings
 index_name = "1kmovies"
@@ -78,15 +75,17 @@ with st.sidebar:
     st.markdown("# About 🙌")
     st.markdown(
         "GPTflix allows you to talk to version of chatGPT \n"
-        "that has access to reviews of about 1K movies! 🎬 \n"
-        "It's a little stupid at the moment because it knows 30k movies but only has reviews for 1k 😝\n"
+        "that has access to reviews of about 10 000 movies! 🎬 \n"
+        "It's a little stupid at the moment because it knows 30k movies but only has reviews for 10k 😝\n"
         )
     st.markdown(
         "Unline chatGPT, GPTflix can't make stuff up\n"
         "and will only answer from injected knowlege 👩‍🏫 \n"
     )
     st.markdown("---")
-    st.markdown("A project by Fatbrain")
+    st.markdown("A side project by Stephan Sturges")
+    st.markdown("Kept online by [Ben's Bites](%s)!" %bb_url)
+    st.image(bens_bites_logo, width=60)
 
     st.markdown("---")
     st.markdown("Tech [info](%s) for you nerds out there!" %tech_url)
@@ -205,72 +204,3 @@ def construct_prompt_pinecone(question):
 #         return choices[0]["text"].strip(" \n")
 #     else:
 #         return None
-
-
-
-
-
-COMPLETIONS_API_PARAMS = {
-        "temperature": 0.0,
-        "max_tokens": 500,
-        "model": COMPLETIONS_MODEL,
-    }
-
-
-def answer_query_with_context_pinecone(query):
-    prompt = construct_prompt_pinecone(query) + "\n\n Q: " + query + "\n A:"
-    
-    print("---------------------------------------------")
-    print("prompt:")
-    print(prompt)
-    print("---------------------------------------------")
-    try:
-        response = openai.Completion.create(
-                    prompt=prompt,
-                    **COMPLETIONS_API_PARAMS
-                )
-    except Exception as e:
-        print("I'm afraid your question failed! This is the error: ")
-        print(e)
-        return None
-
-    choices = response.get("choices", [])
-    if len(choices) > 0:
-        return choices[0]["text"].strip(" \n")
-    else:
-        return None
-
-
-
-# # Storing the chat
-# if 'generated' not in st.session_state:
-#     st.session_state['generated'] = []
-
-# if 'past' not in st.session_state:
-#     st.session_state['past'] = []
-
-# def clear_text():
-#     st.session_state["input"] = ""
-
-# # We will get the user's input by calling the get_text function
-# def get_text():
-#     input_text = st.text_input("Input a question here! For example: \"Is X movie good?\". \n It works best if your question contains the title of a movie! You might want to be really specific, like talking about Pixar's Brave rather than just Brave. Also, I have no memory of previous questions!😅😊","Who are you?", key="input")
-#     return input_text
-
-
-
-# user_input = get_text()
-
-
-# if user_input:
-#     output = answer_query_with_context_pinecone(user_input)
-
-#     # store the output 
-#     st.session_state.past.append(user_input)
-#     st.session_state.generated.append(output)
-
-
-# if st.session_state['generated']:
-#     for i in range(len(st.session_state['generated'])-1, -1, -1):
-#         message(st.session_state["generated"][i],seed=bott_av , key=str(i))
-#         message(st.session_state['past'][i], is_user=True,avatar_style="adventurer",seed=user_av, key=str(i) + '_user')
