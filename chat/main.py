@@ -211,39 +211,39 @@ def construct_prompt_pinecone(question):
 
 
 
-# COMPLETIONS_API_PARAMS = {
-#         "temperature": 0.0,
-#         "max_tokens": 500,
-#         "model": COMPLETIONS_MODEL,
-#     }
+COMPLETIONS_API_PARAMS = {
+        "temperature": 0.0,
+        "max_tokens": 500,
+        "model": COMPLETIONS_MODEL,
+    }
 
 
-# def answer_query_with_context_pinecone(query):
-#     prompt = construct_prompt_pinecone(query) + "\n\n Q: " + query + "\n A:"
+def answer_query_with_context_pinecone(query):
+    prompt = construct_prompt_pinecone(query) + "\n\n Q: " + query + "\n A:"
     
-#     print("---------------------------------------------")
-#     print("prompt:")
-#     print(prompt)
-#     print("---------------------------------------------")
-#     try:
-#         response = openai.ChatCompletion.create(
-#                     messages=[{"role": "system", "content": "You are a helpful AI who loves movies."},
-#                             {"role": "user", "content": str(prompt)}],
-#                             # {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
-#                             # {"role": "user", "content": "Where was it played?"}
-#                             # ]
-#                     **COMPLETIONS_API_PARAMS
-#                 )
-#     except Exception as e:
-#         print("I'm afraid your question failed! This is the error: ")
-#         print(e)
-#         return None
+    print("---------------------------------------------")
+    print("prompt:")
+    print(prompt)
+    print("---------------------------------------------")
+    try:
+        response = openai.ChatCompletion.create(
+                    messages=[{"role": "system", "content": "You are a helpful AI who loves movies."},
+                            {"role": "user", "content": str(prompt)}],
+                            # {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
+                            # {"role": "user", "content": "Where was it played?"}
+                            # ]
+                    **COMPLETIONS_API_PARAMS
+                )
+    except Exception as e:
+        print("I'm afraid your question failed! This is the error: ")
+        print(e)
+        return None
 
-#     choices = response.get("choices", [])
-#     if len(choices) > 0:
-#         return choices[0]["message"]["content"].strip(" \n")
-#     else:
-#         return None
+    choices = response.get("choices", [])
+    if len(choices) > 0:
+        return choices[0]["message"]["content"].strip(" \n")
+    else:
+        return None
 
 
 
