@@ -35,9 +35,9 @@ def randomize_array(arr):
         arr.remove(elem)
     return sampled_arr
 
-st.set_page_config(page_title="GPTflix", page_icon="🍿", layout="wide")
+st.set_page_config(page_title="FAT-GPTflix", page_icon="🍿", layout="wide")
 
-st.header("GPTflix is like chatGPT for movie reviews!🍿\n")
+st.header("FAT-GPTflix is like chatGPT for movie reviews!🍿\n")
 
 # Define the name of the index and the dimensionality of the embeddings
 index_name = "14kmovies"
@@ -75,7 +75,7 @@ with st.sidebar:
     st.markdown("# About 🙌")
     st.markdown(
         "GPTflix allows you to talk to version of chatGPT \n"
-        "that has access to reviews of about 14K movies! 🎬 \n"
+        "that has access to reviews of about 15K movies! 🎬 \n"
         )
     st.markdown(
         "Unline chatGPT, GPTflix can't make stuff up\n"
