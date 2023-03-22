@@ -12,7 +12,7 @@ from PIL import Image
 
 pinecone_api_key = st.secrets["API_KEYS"]["pinecone"]
 
-pinecone.init(api_key=pinecone_api_key, environment="us-central1-gcp")
+pinecone.init(api_key=pinecone_api_key, environment="us-east-1-aws")
 
 openai.api_key = st.secrets["API_KEYS"]["openai"]
 
@@ -40,7 +40,7 @@ st.set_page_config(page_title="GPTflix", page_icon="🍿", layout="wide")
 st.header("GPTflix is like chatGPT for movie reviews!🍿\n")
 
 # Define the name of the index and the dimensionality of the embeddings
-index_name = "1kmovies"
+index_name = "14kmovies"
 dimension = 1536
 
 pineconeindex = pinecone.Index(index_name)
@@ -75,8 +75,7 @@ with st.sidebar:
     st.markdown("# About 🙌")
     st.markdown(
         "GPTflix allows you to talk to version of chatGPT \n"
-        "that has access to reviews of about 1K movies! 🎬 \n"
-        "It's a little stupid at the moment because it knows 30k movies but only has reviews for 1k 😝\n"
+        "that has access to reviews of about 14K movies! 🎬 \n"
         )
     st.markdown(
         "Unline chatGPT, GPTflix can't make stuff up\n"
