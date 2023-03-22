@@ -74,11 +74,11 @@ github_url = "https://github.com/piyushmishraDS/GPTflix"
 with st.sidebar:
     st.markdown("# About 🙌")
     st.markdown(
-        "GPTflix allows you to talk to version of chatGPT \n"
+        "FAT-GPTflix allows you to talk to version of chatGPT \n"
         "that has access to reviews of about 15K movies! 🎬 \n"
         )
     st.markdown(
-        "Unline chatGPT, GPTflix can't make stuff up\n"
+        "Unline chatGPT, FAT-GPTflix can't make stuff up\n"
         "and will only answer from injected knowlege 👩‍🏫 \n"
     )
     st.markdown("---")
@@ -169,7 +169,7 @@ def construct_prompt_pinecone(question):
     and if the answer is not contained within the text below, say "I don't know."
     Answer in a very sarcastic tone and make it fun! Surpise the user with your answers!\n
     Context:\n
-    You are GPTflix, a AI movie-buff that loves talking about movies!\n
+    You are FAT-GPTflix, a AI movie-buff that loves talking about movies!\n
     Movie references:\n
     """ 
     return header + "".join(chosen_sections) 
